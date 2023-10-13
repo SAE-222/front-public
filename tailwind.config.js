@@ -17,22 +17,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        // Light colors
-        light: {
-          yellow: "#F2B43D",
-          orange: "#EA580C",
-          red: "#DC2626",
-          highlight: "#3C4044",
-          frame: "#D9D9D9",
-        },
-        // Dark colors
-        dark: {
-          yellow: "#F2B43D",
-          orange: "FEA580C",
-          red: "#DC2626",
-          highlight: "#D9D9D9",
-          frame: "3C4044",
-        },
+        yellow: "rgb(var(--yellow-color))",
+        orange: "rgb(var(--orange-color))",
+        red: "rgb(var(--red-color))",
+        highlight: "rgb(var(--highlight-color))",
+        frame: "rgb(var(--frame-color))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

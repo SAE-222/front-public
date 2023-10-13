@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import { HeartIcon, ShoppingCartIcon, SunIcon, UserIcon } from "lucide-react";
+import { HeartIcon, ShoppingCartIcon, UserIcon } from "lucide-react";
 
-import Logo from "@/components/logo/logo";
 import { Button, buttonVariants } from "@/components/ui/button";
 
-import { cn } from "@/lib/utils";
+import Logo from "@/components/logo/logo";
+import Switcher from "@/components/dark-side/dark-side";
 
 const GenderButtons = () => {
   return (
@@ -20,39 +20,29 @@ const GenderButtons = () => {
 const Links = () => {
   const links = [
     {
-      icon: SunIcon,
-      href: "",
-      hasBorder: true,
-    },
-    {
       icon: ShoppingCartIcon,
-      href: "",
-      hasBorder: false,
+      href: "/cart",
     },
     {
       icon: HeartIcon,
-      href: "",
-      hasBorder: false,
+      href: "/favorites",
     },
     {
       icon: UserIcon,
-      href: "",
-      hasBorder: false,
+      href: "/account",
     },
   ];
 
   return (
     <div className="flex items-center">
+      <Switcher />
       {links.map((link) => {
         const Icon = link.icon;
         return (
           <Link
             key={link.href}
             href={link.href}
-            className={cn(
-              buttonVariants({ variant: "link" }),
-              link.hasBorder ? "border-r" : ""
-            )}
+            className={buttonVariants({ variant: "link" })}
           >
             <Icon width={20} height={20} />
           </Link>
