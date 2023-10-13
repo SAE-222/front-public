@@ -1,8 +1,9 @@
 import { useDarkSideStore } from "@/store/dark-side-store";
 import Image from "next/image";
 
+// Logo is a simple image with a background color that changes depending on the theme
 const Logo = () => {
-  const { theme } = useDarkSideStore();
+  const theme = useDarkSideStore((state) => state.theme);
   const src = theme === "dark" ? "/dark-logo.svg" : "/light-logo.svg";
 
   return (

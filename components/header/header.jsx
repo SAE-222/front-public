@@ -1,22 +1,12 @@
 import Link from "next/link";
-
 import { HeartIcon, ShoppingCartIcon, UserIcon } from "lucide-react";
 
-import { Button, buttonVariants } from "@/components/ui/button";
-
+import { buttonVariants } from "@/components/ui/button";
 import Logo from "@/components/logo/logo";
 import Switcher from "@/components/dark-side/dark-side";
+import GenderButtons from "@/components/buttons/buttons";
 
-const GenderButtons = () => {
-  return (
-    <div className="hidden md:flex md:items-center">
-      <Button>Homme</Button>
-      <Button variant="ghost">Femme</Button>
-      <Button variant="ghost">Enfant</Button>
-    </div>
-  );
-};
-
+// Links is a list of links to the cart, favorites and account pages
 const Links = () => {
   const links = [
     {
@@ -35,28 +25,33 @@ const Links = () => {
 
   return (
     <div className="flex items-center">
+      // The dark side switcher
       <Switcher />
-      {links.map((link) => {
-        const Icon = link.icon;
-        return (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={buttonVariants({ variant: "link" })}
-          >
-            <Icon width={20} height={20} />
-          </Link>
-        );
-      })}
+      // The links
+      {links.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          className={buttonVariants({ variant: "link" })}
+        >
+          <link.icon />
+        </Link>
+      ))}
     </div>
   );
 };
 
+// Header is the main component with gender buttons, logo and links
 const Header = () => {
   return (
-    <header className="flex justify-between p-2">
-      <GenderButtons />
+    <header className="container flex justify-between p-2">
+      // Gender buttons are only visible on desktop
+      <div className="hidden md:flex md:items-center">
+        <GenderButtons />
+      </div>
+      // The logo
       <Logo />
+      // Links (cart, favorites, account)
       <Links />
     </header>
   );
