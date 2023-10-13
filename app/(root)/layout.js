@@ -1,10 +1,10 @@
-import "./globals.css";
+import "../globals.css";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Nocif - Plateforme de e-commerce",
+  title: "Nocif - Réinventez la mode en ligne.",
   description: "Nocif est une plateforme de e-commerce",
 };
 
