@@ -1,20 +1,38 @@
+"use client";
+
 import Link from "next/link";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import Logo from "@/components/logo/logo";
 import Switcher from "@/components/dark-side/dark-side";
+import { Loader } from "@/components/ui/loader";
 
-import { getGenders, getLinks } from "@/lib/utils";
+import { links } from "@/lib/utils";
+import { useGroups } from "@/hooks/groups";
+import { useCurrentGroup } from "@/store/current-group-store";
 
 // Left of the header desktop
 const HeaderLeftDesktop = () => {
+  const { currentGroup } = useCurrentGroup();
+  const { status, data } = useGroups();
+
   return (
     <div className="hidden md:flex md:items-center">
-      {getGenders.map((gender) => (
-        <Button variant={gender.active ? "default" : "ghost"} key={gender.id}>
-          {gender.label}
-        </Button>
-      ))}
+      {status === "loading" ? (
+        <Loader />
+      ) : (
+        data.map((group) => (
+          <Link
+            className={buttonVariants({
+              variant: currentGroup === group.name ? "default" : "ghost",
+            })}
+            href={`/category/${group.name}`}
+            key={group.id}
+          >
+            {group.label}
+          </Link>
+        ))
+      )}
     </div>
   );
 };
@@ -23,8 +41,8 @@ const HeaderLeftDesktop = () => {
 const HeaderRight = () => {
   return (
     <div className="flex items-center">
-      <Switcher />
-      {getLinks.map((link) => (
+      <Switcher className="border-r border-frame" />
+      {links.map((link) => (
         <Link
           key={link.href}
           href={link.href}

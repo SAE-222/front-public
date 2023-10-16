@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { useDarkSideStore } from "@/store/dark-side-store";
 import Image from "next/image";
@@ -8,16 +10,14 @@ const Logo = ({ className, width = 50, height = 50 }) => {
   const src = theme === "dark" ? "/dark-logo.svg" : "/light-logo.svg";
 
   return (
-    <div className={cn("dark:bg-highlight rounded-xl", className)}>
-      <Image
-        src={src}
-        priority
-        alt="Logo de la plateforme Nocif"
-        width={width}
-        height={height}
-        className="rounded-xl"
-      />
-    </div>
+    <Image
+      src={src}
+      priority
+      alt="Logo de la plateforme Nocif"
+      width={width}
+      height={height}
+      className={cn("dark:bg-highlight rounded-xl", className)}
+    />
   );
 };
 

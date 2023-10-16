@@ -21,9 +21,7 @@ export const MobileMenuButton = ({ onToggle }) => {
 
 const Navigation = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
-
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
