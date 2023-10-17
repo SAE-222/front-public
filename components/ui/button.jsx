@@ -25,7 +25,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 const Button = React.forwardRef(
@@ -39,7 +39,7 @@ const Button = React.forwardRef(
         {children}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

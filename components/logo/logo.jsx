@@ -12,11 +12,11 @@ const Logo = ({ className, width = 50, height = 50 }) => {
   return (
     <Image
       src={src}
+      alt="Logo du site e-commerce Nocif"
       priority
-      alt="Logo de la plateforme Nocif"
       width={width}
       height={height}
-      className={cn("dark:bg-highlight rounded-xl", className)}
+      className={cn("rounded-xl dark:bg-highlight", className)}
     />
   );
 };

@@ -55,10 +55,10 @@ const HeaderRight = () => {
   );
 };
 
-// Header is the main component with gender buttons, logo and links
+// Header is the main header of the app
 const Header = () => {
   return (
-    <header className="flex max-[250px]:justify-center items-center justify-between p-4">
+    <header className="flex items-center justify-between p-4 max-[250px]:justify-center">
       <HeaderLeftDesktop />
       <Logo className="max-[250px]:hidden" />
       <HeaderRight />
