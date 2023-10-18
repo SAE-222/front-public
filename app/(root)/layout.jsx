@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
           <div className="w-full h-full flex flex-col">
             <Header />
             <Navigation />
-            <div className="p-4 grow">{children}</div>
+            <div className="grow">{children}</div>
           </div>
         </QueryProvider>
       </body>

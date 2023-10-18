@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function CategoryPage({ params: { name } }) {
-  const exists = (name, groups) => {
+  const findGroup = (name, groups) => {
     return groups.find((group) => group.name === name);
   };
 
@@ -20,13 +20,12 @@ export default function CategoryPage({ params: { name } }) {
 
   useEffect(() => {
     if (status === "loading") return;
-
-    if (!exists(name, data)) {
+    const group = findGroup(name, data);
+    if (!group) {
       router.push("/");
       return;
     }
-
-    setCurrentGroup(name);
+    setCurrentGroup(group);
   }, [status, searchParams]);
 
   return (

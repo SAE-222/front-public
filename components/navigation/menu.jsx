@@ -12,7 +12,7 @@ import { useState } from "react";
 // Categories for mobile menu
 const MobileCategories = ({ onSelect }) => {
   const { currentGroup } = useCurrentGroup();
-  const { status, data } = useCategoriesByGroup(currentGroup);
+  const { status, data } = useCategoriesByGroup(currentGroup?.name);
 
   return (
     <div className="flex flex-col items-center">
@@ -31,9 +31,9 @@ const MobileCategories = ({ onSelect }) => {
               src={category.img}
               alt="Photo qui représente la catégorie"
               priority
-              width={200}
-              height={200}
-              className="min-w-[200px] h-[200px] object-cover"
+              width={150}
+              height={150}
+              className="min-w-[150px] h-[150px] object-cover"
             />
           </Button>
         ))
@@ -57,7 +57,7 @@ const MobileGroups = () => {
             key={group.id}
             href={`/category/${group.name}`}
             className={buttonVariants({
-              variant: currentGroup === group.name ? "default" : "ghost",
+              variant: currentGroup.name === group.name ? "default" : "ghost",
             })}
           >
             {group.label}
@@ -101,11 +101,12 @@ const MobileSelectedCategoryMenu = ({ close, category }) => {
         Catégories
       </h1>
       <div className="flex flex-col gap-6">
-        {category.subs.map((sub, key) => (
+        {category.subs.map((sub) => (
           <Link
-            key={key}
-            href={`/category/${currentGroup}?cat=${category.query}&sub=${sub.query}`}
-            className="pb-2 border-b border-frame text-sm text-highlight hover:text-highlight/90 dark:text-white dark:opacity-90 dark:hover:text-white/90"
+            key={sub.id}
+            href={`/category/${currentGroup.name}?cat=${category.name}&sub=${sub.name}`}
+            className="pb-2 border-b border-frame text-sm text-highlight hover:text-highlight/90
+              dark:text-white dark:opacity-90 dark:hover:text-white/90"
             onClick={close}
           >
             {sub.label}
@@ -124,7 +125,7 @@ export const MobileMenu = ({ close }) => {
   const backToCategories = () => setSelectedCategory(null);
 
   return (
-    <div className="w-full h-full absolute top-0 bg-white p-4 dark:bg-black">
+    <div className="z-10 w-full h-full absolute top-0 bg-white p-4 dark:bg-black">
       <MobileMenuHeader
         onReturn={backToCategories}
         selectedCategory={selectedCategory}
@@ -146,15 +147,14 @@ const DesktopSubsToShow = ({ category }) => {
   const { currentGroup } = useCurrentGroup();
 
   const showOnlyNthItems = 15;
-
   const subsToShow = category.subs.slice(0, showOnlyNthItems);
 
   return (
     <div className="w-full flex flex-col flex-wrap gap-4 mt-4 overflow-hidden">
-      {subsToShow.map((sub, key) => (
+      {subsToShow.map((sub) => (
         <Link
-          key={key}
-          href={`/category/${currentGroup}?cat=${category.query}&sub=${sub.query}`}
+          key={sub.id}
+          href={`/category/${currentGroup.name}?cat=${category.name}&sub=${sub.name}`}
           className={cn(
             buttonVariants({ variant: "ghost" }),
             "p-0 w-fit h-fit",
@@ -201,7 +201,7 @@ const DesktopDropdownMenu = ({ category }) => {
 // Desktop menu is a simple list of links
 export const DesktopMenu = () => {
   const { currentGroup } = useCurrentGroup();
-  const { status, data } = useCategoriesByGroup(currentGroup);
+  const { status, data } = useCategoriesByGroup(currentGroup?.name);
 
   // We use a state to know which category is hovered
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -211,11 +211,11 @@ export const DesktopMenu = () => {
       {status === "loading" ? (
         <Loader className="ml-4" />
       ) : (
-        <div className="[&>div]:hover:flex">
-          {data.map((category, key) => (
+        <div className="z-10 [&>div]:hover:flex">
+          {data.map((category) => (
             <Link
-              key={key}
-              href={`/category/${currentGroup}?cat=${category.query}`}
+              key={category.id}
+              href={`/category/${currentGroup.name}?cat=${category.name}`}
               onMouseEnter={() => setHoveredCategory(category)}
               className={buttonVariants({ variant: "ghost" })}
             >

@@ -9,8 +9,8 @@ const GroupProvider = ({ children }) => {
   const { currentGroup, setCurrentGroup } = useCurrentGroup();
 
   useEffect(() => {
-    if (status !== "success" || currentGroup?.length > 0) return;
-    setCurrentGroup(data[0].name);
+    if (status !== "success" || currentGroup) return;
+    setCurrentGroup(data[0]);
   }, [status]);
 
   return <>{children}</>;

@@ -24,7 +24,7 @@ const HeaderLeftDesktop = () => {
         data.map((group) => (
           <Link
             className={buttonVariants({
-              variant: currentGroup === group.name ? "default" : "ghost",
+              variant: currentGroup?.name === group.name ? "default" : "ghost",
             })}
             href={`/category/${group.name}`}
             key={group.id}
