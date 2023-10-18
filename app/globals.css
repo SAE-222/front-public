@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --black-color: 18 18 18;
     --yellow-color: 242 180 61;
     --orange-color: 234 88 12;
     --red-color: 220 38 38;
@@ -17,5 +18,5 @@ body {
 }
 
 html.dark {
-  background-color: black;
+  background-color: #121212;
 }

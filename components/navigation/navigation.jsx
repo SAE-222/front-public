@@ -14,21 +14,26 @@ const Navigation = () => {
 
   return (
     <div className="w-full flex border-y border-frame">
-      {isMobileMenuOpen && <MobileMenu close={closeMobileMenu} />}
-      <ButtonIcon
-        iconRef={MenuIcon}
-        variant="ghost"
-        size="icon"
-        className="border-r md:hidden"
-        onClick={toggleMobileMenu}
-      />
-      <DesktopMenu />
-      <InputIcon
-        iconRef={SearchIcon}
-        className="w-full md:w-auto md:border-l"
-        placeholder="Rechercher"
-        hasBorder={false}
-      />
+      {isMobileMenuOpen ? (
+        <MobileMenu close={closeMobileMenu} />
+      ) : (
+        <>
+          <ButtonIcon
+            iconRef={MenuIcon}
+            variant="ghost"
+            size="icon"
+            className="border-r md:hidden"
+            onClick={toggleMobileMenu}
+          />
+          <DesktopMenu />
+          <InputIcon
+            iconRef={SearchIcon}
+            className="w-full md:w-auto md:border-l"
+            placeholder="Rechercher"
+            hasBorder={false}
+          />
+        </>
+      )}
     </div>
   );
 };

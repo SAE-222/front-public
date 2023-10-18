@@ -6,12 +6,11 @@ import { useEffect } from "react";
 
 const GroupProvider = ({ children }) => {
   const { status, data } = useGroups();
-  const { setCurrentGroup } = useCurrentGroup();
+  const { currentGroup, setCurrentGroup } = useCurrentGroup();
 
   useEffect(() => {
-    if (status === "success") {
-      setCurrentGroup(data[0].name);
-    }
+    if (status !== "success" || currentGroup?.length > 0) return;
+    setCurrentGroup(data[0].name);
   }, [status]);
 
   return <>{children}</>;

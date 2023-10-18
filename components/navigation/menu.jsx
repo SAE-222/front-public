@@ -1,4 +1,4 @@
-import { XIcon } from "lucide-react";
+import { ArrowLeftIcon, XIcon } from "lucide-react";
 import { Button, ButtonIcon, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,30 +10,31 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 // Categories for mobile menu
-const MobileCategories = () => {
+const MobileCategories = ({ onSelect }) => {
   const { currentGroup } = useCurrentGroup();
   const { status, data } = useCategoriesByGroup(currentGroup);
 
   return (
-    <div className="flex justify-center flex-wrap">
+    <div className="flex flex-col items-center">
       {status === "loading" ? (
         <Loader />
       ) : (
-        data.map((category, key) => (
+        data.map((category) => (
           <Button
-            key={key}
+            key={category.id}
             variant="ghost"
-            className="h-40 w-56 flex flex-col gap-2"
+            className="w-max h-max flex flex-col gap-3"
+            onClick={() => onSelect(category)}
           >
             {category.label}
-            <div className="relative w-full h-full">
-              <Image
-                fill
-                src={category.img}
-                sizes="auto"
-                alt="Image qui représente la catégorie"
-              />
-            </div>
+            <Image
+              src={category.img}
+              alt="Photo qui représente la catégorie"
+              priority
+              width={200}
+              height={200}
+              className="min-w-[200px] h-[200px] object-cover"
+            />
           </Button>
         ))
       )}
@@ -47,17 +48,20 @@ const MobileGroups = () => {
   const { status, data } = useGroups();
 
   return (
-    <div className="flex flex-wrap justify-center mt-2 p-4 border-t border-frame">
+    <div className="flex flex-wrap justify-center py-4">
       {status === "loading" ? (
         <Loader />
       ) : (
         data.map((group) => (
-          <Button
-            variant={currentGroup === group.name ? "default" : "ghost"}
+          <Link
             key={group.id}
+            href={`/category/${group.name}`}
+            className={buttonVariants({
+              variant: currentGroup === group.name ? "default" : "ghost",
+            })}
           >
             {group.label}
-          </Button>
+          </Link>
         ))
       )}
     </div>
@@ -65,24 +69,75 @@ const MobileGroups = () => {
 };
 
 // Mobile menu header
-const MobileMenuHeader = ({ close }) => {
+const MobileMenuHeader = ({ onReturn, selectedCategory, close }) => {
   return (
-    <div className="flex justify-between items-center">
-      <h1 className="text-highlight font-medium dark:text-white">
-        Parcourir par catégorie
+    <div className="flex justify-between items-center border-b border-frame">
+      <div className="inline-flex items-center gap-2">
+        {selectedCategory && (
+          <ButtonIcon
+            variant="ghost"
+            size="icon"
+            iconRef={ArrowLeftIcon}
+            onClick={onReturn}
+          />
+        )}
+        <h1 className="text-highlight font-medium dark:text-white">
+          {selectedCategory
+            ? selectedCategory.label
+            : "Parcourir par catégorie"}
+        </h1>
+      </div>
+      <ButtonIcon variant="ghost" size="icon" iconRef={XIcon} onClick={close} />
+    </div>
+  );
+};
+
+const MobileSelectedCategoryMenu = ({ close, category }) => {
+  const { currentGroup } = useCurrentGroup();
+
+  return (
+    <div className="flex flex-col p-6 gap-6">
+      <h1 className="text-highlight font-medium dark:text-white dark:opacity-90">
+        Catégories
       </h1>
-      <ButtonIcon variant="ghost" iconRef={XIcon} onClick={close} />
+      <div className="flex flex-col gap-6">
+        {category.subs.map((sub, key) => (
+          <Link
+            key={key}
+            href={`/category/${currentGroup}?cat=${category.query}&sub=${sub.query}`}
+            className="pb-2 border-b border-frame text-highlight dark:text-white dark:opacity-90"
+            onClick={close}
+          >
+            {sub.label}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
 
 // Mobile menu is a list of buttons
 export const MobileMenu = ({ close }) => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const onSelect = (category) => setSelectedCategory(category);
+  const backToCategories = () => setSelectedCategory(null);
+
   return (
-    <div className="w-full absolute top-0 bg-white p-4 dark:bg-black">
-      <MobileMenuHeader close={close} />
-      <MobileGroups />
-      <MobileCategories />
+    <div className="w-full h-full absolute top-0 bg-white p-4 dark:bg-black">
+      <MobileMenuHeader
+        onReturn={backToCategories}
+        selectedCategory={selectedCategory}
+        close={close}
+      />
+      {selectedCategory ? (
+        <MobileSelectedCategoryMenu close={close} category={selectedCategory} />
+      ) : (
+        <>
+          <MobileGroups />
+          <MobileCategories onSelect={onSelect} />
+        </>
+      )}
     </div>
   );
 };
@@ -90,7 +145,7 @@ export const MobileMenu = ({ close }) => {
 const DesktopSubsToShow = ({ category }) => {
   const { currentGroup } = useCurrentGroup();
 
-  const showOnlyNthItems = 20;
+  const showOnlyNthItems = 15;
 
   const subsToShow = category.subs.slice(0, showOnlyNthItems);
 
@@ -124,7 +179,7 @@ const DesktopDropdownMenu = ({ category }) => {
         border-b-highlight dark:bg-black dark:border-b-white"
     >
       <div className="w-2/3 h-full flex flex-col p-4">
-        <h3 className="text-highlight font-medium dark:text-white">
+        <h3 className="text-highlight font-medium dark:text-white dark:opacity-90">
           Catégories
         </h3>
         <DesktopSubsToShow category={category} />
@@ -134,9 +189,9 @@ const DesktopDropdownMenu = ({ category }) => {
           src={category.img}
           alt="Photo qui représente la catégorie"
           priority
-          width={350}
-          height={150}
-          className="w-[350px] h-[150px] self-center"
+          width={200}
+          height={200}
+          className="w-[200px] h-[200px] mx-auto object-cover"
         />
       )}
     </div>

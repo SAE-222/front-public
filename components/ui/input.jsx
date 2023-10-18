@@ -7,8 +7,8 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
     <input
       type={type}
       className={cn(
-        "w-full h-10 px-3 py-2 bg-transparent border border-frame text-highlight text-sm focus-visible:outline-none placeholder:text-highlight disabled:cursor-not-allowed disabled:opacity-50 dark:text-white dark:placeholder:text-white",
-        className
+        "w-full h-10 px-3 py-2 bg-transparent border border-frame text-highlight text-sm focus-visible:outline-none placeholder:text-highlight disabled:cursor-not-allowed disabled:opacity-50 dark:text-white dark:placeholder:text-white dark:opacity-90",
+        className,
       )}
       ref={ref}
       {...props}
@@ -29,18 +29,18 @@ const InputIcon = React.forwardRef(
         <div
           className={cn(
             "h-10 inline-flex items-center pr-3",
-            hasBorder ? "border border-l-0 border-frame" : ""
+            hasBorder ? "border border-l-0 border-frame" : "",
           )}
         >
           <Icon
-            className="text-highlight dark:text-white"
+            className="text-highlight dark:text-white dark:opacity-90"
             width={20}
             height={20}
           />
         </div>
       </div>
     );
-  }
+  },
 );
 
 export { Input, InputIcon };

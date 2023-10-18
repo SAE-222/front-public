@@ -9,7 +9,7 @@ module.exports = {
   ],
   theme: {
     screens: {
-      md: "840px",
+      md: "768px",
     },
     container: {
       center: true,
@@ -20,6 +20,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        black: "rgb(var(--black-color))",
         yellow: "rgb(var(--yellow-color))",
         orange: "rgb(var(--orange-color))",
         red: "rgb(var(--red-color))",

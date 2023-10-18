@@ -1,8 +1,8 @@
-import Header from "@/components/header/header";
 import "../globals.css";
 import { Inter } from "next/font/google";
-import Navigation from "@/components/navigation/navigation";
 import QueryProvider from "@/lib/providers/query-provider";
+import Header from "@/components/header/header";
+import Navigation from "@/components/navigation/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
