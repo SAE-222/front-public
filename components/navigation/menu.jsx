@@ -105,7 +105,7 @@ const MobileSelectedCategoryMenu = ({ close, category }) => {
           <Link
             key={key}
             href={`/category/${currentGroup}?cat=${category.query}&sub=${sub.query}`}
-            className="pb-2 border-b border-frame text-highlight dark:text-white dark:opacity-90"
+            className="pb-2 border-b border-frame text-sm text-highlight hover:text-highlight/90 dark:text-white dark:opacity-90 dark:hover:text-white/90"
             onClick={close}
           >
             {sub.label}
