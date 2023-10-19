@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import QueryProvider from "@/lib/providers/query-provider";
 import Header from "@/components/header/header";
 import Navigation from "@/components/navigation/navigation";
+import { cn } from "@/lib/utils";
+import { MobileMenu } from "@/components/navigation/menu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +16,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-      <body className={inter.className}>
+      <body className={cn("flex", inter.className)}>
         <QueryProvider>
-          <div className="w-full h-full flex flex-col">
+          <MobileMenu />
+          <div className="w-full overflow-x-hidden">
             <Header />
             <Navigation />
-            <div className="grow">{children}</div>
+            {children}
           </div>
         </QueryProvider>
       </body>

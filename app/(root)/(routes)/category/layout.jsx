@@ -7,7 +7,6 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { useProductsByGroup } from "@/hooks/products";
 import { HeartIcon, InfoIcon } from "lucide-react";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const CategoryButton = ({ href, category }) => {
@@ -69,14 +68,11 @@ const CategoryProduct = ({ product }) => {
   };
 
   return (
-    <article className="flex flex-col w-auto h-auto min-w-[150px] max-w-[250px] max-h-[550px] cursor-pointer">
+    <article className="flex flex-col min-w-[150px] max-w-[300px]  cursor-pointer md:w-1/3">
       <div className="relative">
-        <Image
+        <img
           src={firstImg}
           alt={`Image du produit ${product.label}`}
-          width={250}
-          height={550}
-          priority
           className="w-auto h-auto object-cover"
         />
         <div className="absolute top-0 right-0 mt-2 bg-white p-2">

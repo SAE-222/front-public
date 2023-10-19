@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowLeftIcon, XIcon } from "lucide-react";
 import { Button, ButtonIcon, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
@@ -8,6 +10,7 @@ import { useCategoriesByGroup } from "@/hooks/categories";
 import { useCurrentGroup } from "@/store/current-group-store";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useMobileMenu } from "@/store/mobile-menu";
 
 // Categories for mobile menu
 const MobileCategories = ({ onSelect }) => {
@@ -69,7 +72,11 @@ const MobileGroups = () => {
 };
 
 // Mobile menu header
-const MobileMenuHeader = ({ onReturn, selectedCategory, close }) => {
+const MobileMenuHeader = ({ onReturn, selectedCategory }) => {
+  const { setIsOpen } = useMobileMenu();
+
+  const close = () => setIsOpen(false);
+
   return (
     <div className="flex justify-between items-center border-b border-frame">
       <div className="inline-flex items-center gap-2">
@@ -92,8 +99,11 @@ const MobileMenuHeader = ({ onReturn, selectedCategory, close }) => {
   );
 };
 
-const MobileSelectedCategoryMenu = ({ close, category }) => {
+const MobileSelectedCategoryMenu = ({ category }) => {
+  const { setIsOpen } = useMobileMenu();
   const { currentGroup } = useCurrentGroup();
+
+  const close = () => setIsOpen(false);
 
   return (
     <div className="flex flex-col p-6 gap-6">
@@ -118,28 +128,32 @@ const MobileSelectedCategoryMenu = ({ close, category }) => {
 };
 
 // Mobile menu is a list of buttons
-export const MobileMenu = ({ close }) => {
+export const MobileMenu = () => {
+  const { isOpen } = useMobileMenu();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const onSelect = (category) => setSelectedCategory(category);
   const backToCategories = () => setSelectedCategory(null);
 
   return (
-    <div className="z-10 w-full h-full absolute top-0 bg-white p-4 dark:bg-black">
-      <MobileMenuHeader
-        onReturn={backToCategories}
-        selectedCategory={selectedCategory}
-        close={close}
-      />
-      {selectedCategory ? (
-        <MobileSelectedCategoryMenu close={close} category={selectedCategory} />
-      ) : (
-        <>
-          <MobileGroups />
-          <MobileCategories onSelect={onSelect} />
-        </>
+    <>
+      {isOpen && (
+        <div className="z-50 absolute w-full min-h-screen bg-white p-4 dark:bg-black">
+          <MobileMenuHeader
+            onReturn={backToCategories}
+            selectedCategory={selectedCategory}
+          />
+          {selectedCategory ? (
+            <MobileSelectedCategoryMenu category={selectedCategory} />
+          ) : (
+            <>
+              <MobileGroups />
+              <MobileCategories onSelect={onSelect} />
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
