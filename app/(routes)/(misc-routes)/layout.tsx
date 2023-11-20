@@ -8,6 +8,8 @@ interface MiscRoutesLayoutProps {
   children: React.ReactNode;
 }
 
+export const runtime = "edge"
+
 const MiscRoutesLayout = async ({ children }: MiscRoutesLayoutProps) => {
 
   const groups = await getGroups();

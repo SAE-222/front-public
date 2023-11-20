@@ -1,21 +1,12 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { UserIcon } from "lucide-react";
 import Link from "next/link";
-
-const AvatarAccount = () => {
-  return (
-    <Avatar>
-      <AvatarImage src="https://github.com/antoine-mille.png" />
-      <AvatarFallback>AM</AvatarFallback>
-    </Avatar>
-  );
-};
 
 const AccountDropdownMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
-        <AvatarAccount />
+        <UserIcon />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Mon compte</DropdownMenuLabel>

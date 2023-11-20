@@ -8,6 +8,8 @@ interface GroupLayoutProps {
   params: { groupName: string };
 }
 
+export const runtime = "edge"
+
 const GroupLayout = async ({ children, params: { groupName } }: GroupLayoutProps) => {
 
   const group = await getGroup(groupName);
