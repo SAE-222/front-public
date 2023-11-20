@@ -37,7 +37,7 @@ const Products = ({ isLoading, products }: ProductsProps) => {
       className="w-full grid grid-cols-auto-fit justify-center gap-4"
     >
       {products.map((product) => (
-        <Link href={`/product/${product.id}`} key={product.id}>
+        <Link href={`/product/${product.id}`} key={product.id} className="self-start">
           <ProductCard product={product} />
         </Link>
       ))}
@@ -51,8 +51,8 @@ const withProducts = (Component: React.ComponentType<ProductsProps>) => {
     const { group } = useContext(AppDataContext);
     const category = useCategory(true);
 
-    const [products, setProducts] = useState<Product[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [products, setProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const buildUrl = useCallback(() => {
       if (!category) return `/groups/${group.name}/products`;

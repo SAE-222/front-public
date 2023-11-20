@@ -4,7 +4,10 @@ import '../globals.css'
 import { cn } from '@/lib/utils'
 import Header from '@/components/header/header'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  weight: ["400", "700"],  
+  subsets: ['latin'] 
+})
 
 export const metadata: Metadata = {
   title: 'Plateforme ecommerce',

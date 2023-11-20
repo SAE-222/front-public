@@ -13,11 +13,11 @@ const GroupPage = () => {
           <ItemsSlider />
         </Container>
       </div>
-      <Container className="flex justify-between pt-0">
+      <Container className="flex justify-center pt-0">
         <div className="hidden w-[215px] md:block">
           <ItemsNavigation />
         </div>
-        <div className="flex-grow mt-4 md:m-0">
+        <div className="flex-grow mt-4 md:mt-0">
           <Products />
         </div>
       </Container>

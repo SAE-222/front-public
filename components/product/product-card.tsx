@@ -17,7 +17,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const firstImage = product.imgs[0];
 
   return (
-    <div className="flex flex-col cursor-pointer">
+    <article>
       <div className="relative w-[280px] h-[400px]">
         <Image
           src={firstImage}
@@ -25,7 +25,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           width={280}
           height={400}
           priority
-          style={{ width: "280px", height: "400px"  }}
+          className="w-[280px] h-[400px]"
         />
         <div className="absolute top-0 right-0 mt-2 p-2 bg-white">
           <HeartIcon />
@@ -47,7 +47,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </p>
         )}
       </div>
-    </div>
+    </article>
   )
 }
 

@@ -26,9 +26,7 @@ const MiscRoutesLayout = async ({ children }: MiscRoutesLayoutProps) => {
       categories={categories}
     >
       <CategoriesNavigation />
-      <div className="w-full p-8">
-        {children}
-      </div>
+      {children}
     </AppDataProvider>
   )
 }

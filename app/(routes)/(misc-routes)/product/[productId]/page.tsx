@@ -1,3 +1,4 @@
+import Container from "@/components/container/container";
 import Product from "@/components/product/product"
 
 interface ProductPageProps {
@@ -6,9 +7,9 @@ interface ProductPageProps {
 
 const ProductPage = ({ params }: ProductPageProps) => {
   return (
-    <div>
+    <Container>
       <Product productId={+params.productId} />
-    </div>
+    </Container>
   )
 }
 
