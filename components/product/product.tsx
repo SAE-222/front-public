@@ -4,50 +4,71 @@ import axiosInstance from "@/lib/axios";
 import { Product } from "@/types/product.type";
 import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";
-import Image from "next/image";
 import ProductSlider from "./product-slider";
-
-interface ProductImageProps {
-  img: string;
-  label: string;
-}
-
-const ProductImage = ({ img, label }: ProductImageProps) => {
-  const [zoom, setZoom] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: any) => {
-    const { left, top, width, height } = e.target.getBoundingClientRect();
-    const x = ((e.pageX - left) / width) * 100;
-    const y = ((e.pageY - top) / height) * 100;
-    setMousePosition({ x, y });
-  };
-
-  return (
-    <div 
-      className="relative w-full max-w-[480px] max-h-[650px] overflow-hidden cursor-move"
-      onMouseEnter={() => setZoom(true)}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => setZoom(false)}
-    >
-      <Image 
-        src={img}
-        alt={`Produit ${label}`}
-        width={500}
-        height={680}
-        priority
-        className={`w-full h-auto object-cover overflow-hidden transition-transform duration-300 ease-in-out ${zoom ? 'scale-150' : ''}`}
-        style={{
-          transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`
-        }}
-      />
-    </div>
-  );
-};
-
+import ProductPrice from "./product-price";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import ProductImage from "./product-image";
+import { Button } from "../ui/button";
+import { HeartIcon } from "lucide-react";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Form, FormField, FormItem, FormMessage } from "../ui/form";
 
 interface ProductProps {
   productId: number;
+}
+
+const FormSchema = z.object({
+  size: z.string({
+    required_error: "Veuillez choisir une taille"
+  })
+});
+
+interface ProductFormProps {
+  product: Product;
+}
+
+const ProductForm = ({ product }: ProductFormProps) => {
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  })
+
+  const onSubmit = () => {
+    console.log("submit")
+  }
+
+  return (
+    <Form {...form}>
+      <form id="cart" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="size"
+          render={({ field }) => (
+            <FormItem>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Votre taille" />
+                </SelectTrigger>
+                <SelectContent className="w-full">
+                  {product.sizes.map((size, key) => (
+                    <SelectItem key={key} value={size}>
+                      {size}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
+  )
 }
 
 const Product = ({ productId }: ProductProps) => {
@@ -85,10 +106,10 @@ const Product = ({ productId }: ProductProps) => {
     return <Skeleton className="w-full h-[650px]" />
 
   return (
-    <article className="space-y-4">
+    <article className="max-w-[480px] space-y-4">
       <ProductImage 
-        label={product.label}
         img={product.imgs[active]} 
+        product={product}
       />
       <ProductSlider 
         imgs={product.imgs} 
@@ -96,6 +117,21 @@ const Product = ({ productId }: ProductProps) => {
         active={active}
         setActive={setActive}
       />
+      <div className="space-y-2">
+        <h1 className="text-lg text-primary font-bold">{product.label}</h1>
+        <ProductPrice product={product} />
+      </div>
+      <div className="w-full">
+        <ProductForm product={product} />
+      </div>
+
+      <div className="flex gap-2">
+        <Button form="cart" type="submit" variant="destructive" className="flex-grow">Ajouter au panier</Button>
+        <Button variant="outline" size="icon">
+          <HeartIcon />
+        </Button>
+      </div>
+
     </article>
   )
 }

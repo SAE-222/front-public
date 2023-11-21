@@ -7,7 +7,7 @@ interface ProductPageProps {
 
 const ProductPage = ({ params }: ProductPageProps) => {
   return (
-    <Container>
+    <Container className="flex justify-center">
       <Product productId={+params.productId} />
     </Container>
   )
