@@ -14,6 +14,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form, FormField, FormItem, FormMessage } from "../ui/form";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 
 interface ProductProps {
   productId: number;
@@ -87,9 +88,9 @@ const Product = ({ productId }: ProductProps) => {
       } catch (error: any) {
         console.error(error);
         if (error.response.status === 404) {
-          setError("Product not found");
+          setError("Le produit n'existe pas");
         } else {
-          setError("Error while fetching product")
+          setError("Erreur lors de la récupération du produit")
         }
       } finally {
         setIsLoading(false);
@@ -126,11 +127,27 @@ const Product = ({ productId }: ProductProps) => {
       </div>
 
       <div className="flex gap-2">
-        <Button form="cart" type="submit" variant="destructive" className="flex-grow">Ajouter au panier</Button>
-        <Button variant="outline" size="icon">
+        <Button 
+          form="cart" 
+          type="submit" 
+          variant="destructive" 
+          className="flex-grow"
+        >
+          Ajouter au panier
+        </Button>
+        <Button variant="outline" size="icon" className="[&>svg]:hover:fill-red-600 [&>svg]:hover:text-red-600">
           <HeartIcon />
         </Button>
       </div>
+
+      <Accordion type="single" collapsible>
+        <AccordionItem value="description">
+          <AccordionTrigger className="font-bold">Détails du produit</AccordionTrigger>
+          <AccordionContent>
+            {product.description}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
 
     </article>
   )

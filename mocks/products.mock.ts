@@ -8,6 +8,7 @@ const products: Product[] = [
     subCategoryId: 11,
     name: "robe-chemise",
     label: "Robe chemise",
+    description: "Robe chemise en coton mélangé avec col classique et manches longues. Modèle avec poches de poitrine, ceinture amovible à nouer à la taille et fente sur les côtés. Base arrondie, plus longue dans le dos. Non doublée.",
     price: 39.99,
     discount: 0.2,
     imgs: [
@@ -31,6 +32,7 @@ const products: Product[] = [
     subCategoryId: 4,
     name: "bottes-plateau",
     label: "Bottes à plateau",
+    description: "Bottes à plateau en similicuir avec fermeture éclair sur le côté et semelle intérieure en imitation cuir. Semelle extérieure en caoutchouc. Hauteur du plateau 4 cm, hauteur du talon 10 cm.",
     price: 179.95,
     imgs: [
       "https://img01.ztat.net/article/spp-media-p1/0f636c606ccf35138355bdfcb59a6530/510eb87a0b024d86892fd5125e22096b.jpg",
@@ -53,6 +55,7 @@ const products: Product[] = [
     subCategoryId: 1,
     name: "pullandbear-t-shirt-imprime-beige",
     label: "T-shirt imprimé",
+    description: "T-shirt en coton avec imprimé devant.",
     price: 9.99,
     imgs: [
       "https://img01.ztat.net/article/spp-media-p1/4decc05e88c74c9e8fdd024f4717b800/66b17a8f9d344c439e8f2a2de97f6959.jpg",

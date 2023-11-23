@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: { name: string } }
 ) {
   // Simulate a slow response
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+  await new Promise((resolve) => setTimeout(resolve, 250));
   const group = groups.find(
     (group) => group.name.toLowerCase() === params.name.toLowerCase(),
   );

@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: { id: string } },
 ) {
   // Simulate network latency
-  await new Promise((resolve) => setTimeout(resolve, 1250));
+  await new Promise((resolve) => setTimeout(resolve, 250));
   const subs = categories.map((category) => category.subs).flat();
   const sub = subs.find((sub) => sub.id === +params.id);
   if (!sub) {

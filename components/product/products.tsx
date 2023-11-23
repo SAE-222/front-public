@@ -37,7 +37,7 @@ const Products = ({ isLoading, products }: ProductsProps) => {
       className="w-full grid grid-cols-auto-fit justify-center gap-4"
     >
       {products.map((product) => (
-        <Link href={`/product/${product.id}`} key={product.id} className="self-start">
+        <Link href={`/product/${product.id}`} key={product.id}>
           <ProductCard product={product} />
         </Link>
       ))}
@@ -64,10 +64,10 @@ const withProducts = (Component: React.ComponentType<ProductsProps>) => {
       const fetchProducts = async () => {
         setIsLoading(true);
         try {
-          const response = await axiosInstance.get(buildUrl(), {
+          const { data } = await axiosInstance.get(buildUrl(), {
             signal: controller.signal
           });
-          setProducts(response.data.products);
+          setProducts(data.products);
           setIsLoading(false);
         } catch (error: any) {
           if (error.message === 'canceled') {

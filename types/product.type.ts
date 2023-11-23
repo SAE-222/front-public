@@ -5,6 +5,7 @@ type Product = {
   subCategoryId?: number;
   name: string;
   label: string;
+  description: string;
   price: number;
   discount?: number;
   imgs: string[];

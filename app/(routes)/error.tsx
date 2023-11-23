@@ -1,29 +1,28 @@
 'use client'
- 
-import { useEffect } from 'react'
- 
+
+import Container from "@/components/container/container"
+import { buttonVariants } from "@/components/ui/button"
+import Link from "next/link"
+
 export default function Error({
   error,
-  reset,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
 }) {
-  useEffect(() => {
-    console.error(error)
-  }, [error])
- 
   return (
-    <div>
-      <h2>{error.message}</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
+    <Container className="flex flex-col gap-6 justify-center items-center">
+      <div className="space-y-1">
+        <h1 className="text-base text-center font-bold text-primary sm:text-lg">Oups, une erreur est survenue</h1>
+        <p className="text-base text-center sm:text-lg">
+          {error.message}
+        </p>
+      </div>
+      <Link
+        href='/'
+        className={buttonVariants({ variant: 'destructive' })}
       >
-        Try again
-      </button>
-    </div>
+        Retour à l'accueil
+      </Link>
+    </Container>
   )
 }

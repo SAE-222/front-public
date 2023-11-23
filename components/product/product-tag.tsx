@@ -9,7 +9,7 @@ const ProductTag = ({ tag, className }: ProductTagProps) => {
   return (
     <div
       className={cn(
-        "absolute bottom-0 left-0 mb-2 py-1 px-2 text-xs bg-white",
+        "mb-2 py-1 px-2 text-xs bg-white",
         className,
       )}
     >
