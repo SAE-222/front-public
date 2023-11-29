@@ -114,7 +114,7 @@ const Product = ({ productId }: ProductProps) => {
           description: data.description,
           categoryId: data.id_categories,
           imgs: data.images,
-          sizes: ["XS", "M", "L", "XL"],
+          sizes: data.sizes,
         });
       } catch (error: any) {
         console.error(error);

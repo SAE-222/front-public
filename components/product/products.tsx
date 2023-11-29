@@ -75,7 +75,7 @@ const withProducts = (Component: React.ComponentType<ProductsProps>) => {
                 description: product.description,
                 category: product.id_categories,
                 imgs: product.images,
-                sizes: ["XS", "M", "L", "XL"],
+                sizes: product.sizes,
               };
             })
           );
