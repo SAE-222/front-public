@@ -8,22 +8,21 @@ interface GroupLayoutProps {
   params: { groupName: string };
 }
 
-export const runtime = "edge"
+export const runtime = "edge";
 
-const GroupLayout = async ({ children, params: { groupName } }: GroupLayoutProps) => {
-
+const GroupLayout = async ({
+  children,
+  params: { groupName },
+}: GroupLayoutProps) => {
   const group = await getGroup(groupName);
   const categories = await getCategoriesByGroup(group.name);
 
   return (
-    <AppDataProvider
-      group={group}
-      categories={categories}
-    >
+    <AppDataProvider group={group} categories={categories}>
       <CategoriesNavigation />
       {children}
     </AppDataProvider>
-  )
-}
+  );
+};
 
 export default GroupLayout;

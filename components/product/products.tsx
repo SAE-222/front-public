@@ -3,7 +3,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { Product } from "@/types/product.type";
 import useCategory from "@/hooks/use-category";
-import { isCategory } from "@/services/categories.service";
 import ProductCard from "./product-card";
 import { AppDataContext } from "../providers/app-data-provider";
 import { Skeleton } from "../ui/skeleton";
@@ -17,33 +16,34 @@ interface ProductsProps {
 }
 
 const Products = ({ isLoading, products }: ProductsProps) => {
+  if (isLoading) return <Skeleton className="w-full h-[400px]" />;
 
-  if (isLoading) return (
-    <Skeleton className="w-full h-[400px]" />
-  )
-
-  if (products.length === 0) return (
-    <div className="h-[400px] flex flex-col justify-center items-center gap-2">
-      <ShirtIcon />
-      <div className="text-center">
-        <p className="font-semibold">Aucun article disponible pour le moment</p>
-        <p className="text-xs">Nous vous invitons à revenir ultérieurement pour découvrir nos nouveautés</p>
+  if (products.length === 0)
+    return (
+      <div className="h-[400px] flex flex-col justify-center items-center gap-2">
+        <ShirtIcon />
+        <div className="text-center">
+          <p className="font-semibold">
+            Aucun article disponible pour le moment
+          </p>
+          <p className="text-xs">
+            Nous vous invitons à revenir ultérieurement pour découvrir nos
+            nouveautés
+          </p>
+        </div>
       </div>
-    </div>
-  )
+    );
 
   return (
-    <div 
-      className="w-full grid grid-cols-auto-fit justify-center gap-4"
-    >
+    <div className="w-full grid grid-cols-auto-fit justify-center gap-4">
       {products.map((product) => (
         <Link href={`/product/${product.id}`} key={product.id}>
           <ProductCard product={product} />
         </Link>
       ))}
     </div>
-  )
-}
+  );
+};
 
 // HOC that provides the products prop to the component
 const withProducts = (Component: React.ComponentType<ProductsProps>) => {
@@ -55,8 +55,7 @@ const withProducts = (Component: React.ComponentType<ProductsProps>) => {
     const [isLoading, setIsLoading] = useState(true);
 
     const buildUrl = useCallback(() => {
-      if (!category) return `/groups/${group.name}/products`;
-      return isCategory(category) ? `/categories/${category.id}/products` : `/sub-categories/${category.id}/products`;
+      return `products/categories/${!category ? group.id : category.id}`;
     }, [category]);
 
     useEffect(() => {
@@ -65,13 +64,25 @@ const withProducts = (Component: React.ComponentType<ProductsProps>) => {
         setIsLoading(true);
         try {
           const { data } = await axiosInstance.get(buildUrl(), {
-            signal: controller.signal
+            signal: controller.signal,
           });
-          setProducts(data.products);
+          setProducts(
+            data.map((product: any) => {
+              return {
+                id: product.id_produit,
+                label: product.nom,
+                price: product.prix,
+                description: product.description,
+                category: product.id_categories,
+                imgs: product.images,
+                sizes: [],
+              };
+            })
+          );
           setIsLoading(false);
         } catch (error: any) {
-          if (error.message === 'canceled') {
-            console.error('Request canceled');
+          if (error.message === "canceled") {
+            console.error("Request canceled");
           } else {
             console.error("Error while fetching products", error);
             setIsLoading(false);
@@ -86,10 +97,8 @@ const withProducts = (Component: React.ComponentType<ProductsProps>) => {
       };
     }, [buildUrl]);
 
-
     return <Component isLoading={isLoading} products={products} />;
   };
 };
-
 
 export default withProducts(Products);

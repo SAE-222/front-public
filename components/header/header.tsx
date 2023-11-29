@@ -3,6 +3,7 @@ import Link from "next/link";
 import Groups from "./groups";
 import AccountDropdownMenu from "./account-dropdown-menu";
 import { HeartIcon, ShoppingCartIcon } from "lucide-react";
+import ModeToggle from "./theme";
 
 const HeaderLeft = () => {
   return (
@@ -16,24 +17,20 @@ const HeaderLeft = () => {
 
 const HeaderRight = () => {
   return (
-    <div className="inline-flex gap-4">
+    <div className="inline-flex gap-4 items-center">
       <AccountDropdownMenu />
-      <Link
-        href="/favorites"
-      >
+      <Link href="/favorites">
         <HeartIcon />
       </Link>
-      <Link
-        href="/cart"
-      >
+      <Link href="/cart">
         <ShoppingCartIcon />
       </Link>
+      <ModeToggle className="ml-4" />
     </div>
-  )
-}
+  );
+};
 
 const Header = async () => {
-
   const groups = await getGroups();
 
   return (
@@ -45,6 +42,6 @@ const Header = async () => {
       </div>
     </header>
   );
-}
+};
 
 export default Header;

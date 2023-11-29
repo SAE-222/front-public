@@ -2,7 +2,7 @@ type Group = {
   id: number;
   name: string;
   label: string;
-  default: boolean;
-}
+  default?: boolean;
+};
 
 export type { Group };

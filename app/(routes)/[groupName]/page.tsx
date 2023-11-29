@@ -22,7 +22,7 @@ const GroupPage = () => {
         </div>
       </Container>
     </>
-  )
-}
+  );
+};
 
 export default GroupPage;

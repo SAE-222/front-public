@@ -9,7 +9,6 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-
   const firstImage = product.imgs[0];
 
   return (
@@ -23,16 +22,24 @@ const ProductCard = ({ product }: ProductCardProps) => {
           priority
           className="w-[280px] h-[400px]"
         />
-        <div className="absolute top-0 right-0 mt-2 p-2 bg-white hover:bg-white/70 [&>svg]:hover:fill-red-600 [&>svg]:hover:text-red-600">
-          <HeartIcon />
+        <div className="absolute top-0 right-0 mt-2 p-2 bg-white hover:bg-white/70 group">
+          <HeartIcon className="text-black group-hover:fill-red-600 group-hover:text-red-600" />
         </div>
         <div className="absolute bottom-0 left-0 w-full">
           {product.discount && (
-            <ProductTag tag="Promo" className="bg-red-600 w-fit text-white font-medium" />
+            <ProductTag
+              tag="Promo"
+              className="bg-red-600 w-fit text-white font-medium"
+            />
           )}
-          <div id="details" className="hidden gap-4 justify-center items-center w-full h-[40px] bg-white">
+          <div
+            id="details"
+            className="hidden gap-4 justify-center items-center w-full h-[40px] bg-white"
+          >
             {product.sizes.map((size, key) => (
-              <div key={key} className="text-sm">{size}</div>
+              <div key={key} className="text-sm text-black">
+                {size}
+              </div>
             ))}
           </div>
         </div>
@@ -43,7 +50,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <ProductPrice product={product} />
       </div>
     </article>
-  )
-}
+  );
+};
 
 export default ProductCard;

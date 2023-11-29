@@ -13,7 +13,7 @@ const ItemsSlider = ({ items, getHref }: ItemsSliderProps) => {
   return (
     <div className="w-full flex gap-2 overflow-x-auto scrollable md:hidden">
       {items.map((category: any) => (
-        <Link 
+        <Link
           key={category.id}
           href={getHref(category)}
           className={buttonVariants({ variant: "destructive" })}
@@ -22,7 +22,7 @@ const ItemsSlider = ({ items, getHref }: ItemsSliderProps) => {
         </Link>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default withUrlParams(ItemsSlider);

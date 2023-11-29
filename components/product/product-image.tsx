@@ -20,10 +20,8 @@ const ProductImage = ({ img, product }: ProductImageProps) => {
   };
 
   return (
-    <div 
-      className="relative w-full max-h-[650px] overflow-hidden"
-    >
-      <Image 
+    <div className="relative w-full max-h-[650px] overflow-hidden">
+      <Image
         src={img}
         alt={`Produit ${product.label}`}
         width={500}
@@ -38,17 +36,20 @@ const ProductImage = ({ img, product }: ProductImageProps) => {
           transition-transform 
           duration-300 
           ease-in-out 
-          ${zoom ? 'scale-150' : ''}
+          ${zoom ? "scale-150" : ""}
         `}
         style={{
-          transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`
+          transformOrigin: `${mousePosition.x}% ${mousePosition.y}%`,
         }}
         onMouseEnter={() => setZoom(true)}
         onMouseMove={handleMouseMove}
         onMouseLeave={() => setZoom(false)}
       />
       {product.discount && (
-        <ProductTag tag="Promo" className="bg-red-600 text-white font-medium" />
+        <ProductTag
+          tag="Promo"
+          className="absolute bg-red-600 bottom-0 left-0 text-white font-medium"
+        />
       )}
     </div>
   );

@@ -1,6 +1,12 @@
 "use client";
 
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 import { Category } from "@/types/category.type";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
@@ -12,8 +18,9 @@ interface CategoryNavigationContentProps {
   category: Category;
 }
 
-const CategoryNavigationContent = ({ category }: CategoryNavigationContentProps) => {
-
+const CategoryNavigationContent = ({
+  category,
+}: CategoryNavigationContentProps) => {
   const { group } = useContext(AppDataContext);
 
   return (
@@ -25,10 +32,7 @@ const CategoryNavigationContent = ({ category }: CategoryNavigationContentProps)
             <Link
               key={sub.id}
               href={`/${group.name}?category=${category.name}&sub=${sub.name}`}
-              className={cn(
-                buttonVariants({ variant: "link" }),
-                "p-0 w-fit"
-              )}
+              className={cn(buttonVariants({ variant: "link" }), "p-0 w-fit")}
             >
               {sub.label}
             </Link>
@@ -36,11 +40,10 @@ const CategoryNavigationContent = ({ category }: CategoryNavigationContentProps)
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const CategoriesNavigation = () => {
-
   const { categories } = useContext(AppDataContext);
 
   if (categories.length === 0) return null;
@@ -60,7 +63,7 @@ const CategoriesNavigation = () => {
         </NavigationMenuList>
       </NavigationMenu>
     </div>
-  )
-}
+  );
+};
 
 export default CategoriesNavigation;

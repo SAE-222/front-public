@@ -8,27 +8,22 @@ interface MiscRoutesLayoutProps {
   children: React.ReactNode;
 }
 
-export const runtime = "edge"
+export const runtime = "edge";
 
 const MiscRoutesLayout = async ({ children }: MiscRoutesLayoutProps) => {
-
   const groups = await getGroups();
   const defaultGroup = groups.find((group) => group.default);
 
-  if (!defaultGroup)
-    notFound();
+  if (!defaultGroup) notFound();
 
   const categories = await getCategoriesByGroup(defaultGroup.name);
 
   return (
-    <AppDataProvider
-      group={defaultGroup}
-      categories={categories}
-    >
+    <AppDataProvider group={defaultGroup} categories={categories}>
       <CategoriesNavigation />
       {children}
     </AppDataProvider>
-  )
-}
+  );
+};
 
 export default MiscRoutesLayout;

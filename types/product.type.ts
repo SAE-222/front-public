@@ -3,7 +3,6 @@ type Product = {
   groupId?: number;
   categoryId?: number;
   subCategoryId?: number;
-  name: string;
   label: string;
   description: string;
   price: number;

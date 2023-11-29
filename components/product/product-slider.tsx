@@ -8,14 +8,18 @@ interface ProductSliderProps {
   setActive: (key: number) => void;
 }
 
-const ProductSlider = ({ imgs, label, active, setActive }: ProductSliderProps) => {
-
+const ProductSlider = ({
+  imgs,
+  label,
+  active,
+  setActive,
+}: ProductSliderProps) => {
   const onClick = (key: number) => setActive(key);
 
   return (
     <div className="w-full max-w-full flex gap-2 overflow-x-auto scrollable">
       {imgs.map((img, key) => (
-        <Image 
+        <Image
           key={key}
           src={img}
           alt={`Produit ${label}`}
@@ -24,12 +28,12 @@ const ProductSlider = ({ imgs, label, active, setActive }: ProductSliderProps) =
           onClick={() => onClick(key)}
           className={cn(
             "cursor-pointer w-[100px] h-[150px]",
-            active === key && "border-2 border-primary"
+            active === key && "border-2 border-black dark:border-white"
           )}
         />
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default ProductSlider;

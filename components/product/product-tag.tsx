@@ -7,12 +7,7 @@ interface ProductTagProps {
 
 const ProductTag = ({ tag, className }: ProductTagProps) => {
   return (
-    <div
-      className={cn(
-        "mb-2 py-1 px-2 text-xs bg-white",
-        className,
-      )}
-    >
+    <div className={cn("mb-2 py-1 px-2 text-xs bg-white", className)}>
       {tag}
     </div>
   );

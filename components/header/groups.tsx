@@ -11,7 +11,6 @@ interface GroupsProps {
 }
 
 const Groups = ({ groups }: GroupsProps) => {
-
   const pathname = usePathname();
 
   const isActive = (group: Group) => {
@@ -34,7 +33,7 @@ const Groups = ({ groups }: GroupsProps) => {
         </Link>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default Groups;

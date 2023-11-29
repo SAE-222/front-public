@@ -5,7 +5,7 @@ const AccountPage = () => {
     <Container>
       <h1>Account Page</h1>
     </Container>
-  )
-}
+  );
+};
 
 export default AccountPage;

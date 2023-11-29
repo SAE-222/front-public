@@ -12,13 +12,17 @@ interface AppDataProviderProps {
 
 export const AppDataContext = createContext({
   group: {} as Group,
-  categories: [] as Category[]
+  categories: [] as Category[],
 });
 
-export const AppDataProvider = ({ children, group, categories }: AppDataProviderProps) => {
+export const AppDataProvider = ({
+  children,
+  group,
+  categories,
+}: AppDataProviderProps) => {
   return (
     <AppDataContext.Provider value={{ group, categories }}>
       {children}
     </AppDataContext.Provider>
-  )
-}
+  );
+};
