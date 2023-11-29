@@ -34,10 +34,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
           <div
             id="details"
-            className="hidden gap-4 justify-center items-center w-full h-[40px] bg-white"
+            className="p-2 hidden gap-4 flex-wrap justify-center items-center bg-white"
           >
             {product.sizes.map((size, key) => (
-              <div key={key} className="text-sm text-black">
+              <div key={key} className="text-sm text-black whitespace-nowrap  overflow-ellipsis">
                 {size}
               </div>
             ))}
