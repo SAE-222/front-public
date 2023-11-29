@@ -1,8 +1,8 @@
-import URL from "@/lib/environment";
 import { Category, SubCategory } from "@/types/category.type";
+import { BACK_URL } from "@/lib/environment";
 
 const getCategoriesByGroup = async (groupName: string): Promise<Category[]> => {
-  const response = await fetch(`${URL}/categories/${groupName}`, {
+  const response = await fetch(`${BACK_URL}/categories/${groupName}`, {
     next: { revalidate: 300 },
   });
   if (!response.ok) {
