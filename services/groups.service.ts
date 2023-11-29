@@ -1,8 +1,8 @@
-import URL from "@/lib/environment";
 import { Group } from "@/types/group.type";
+import { BACK_URL } from "@/lib/environment";
 
 const getGroups = async (): Promise<Group[]> => {
-  const response = await fetch(`${URL}/groups`, { cache: "no-cache" });
+  const response = await fetch(`${BACK_URL}/groups`, { cache: "no-cache" });
   if (!response.ok) {
     throw new Error(
       "Une erreur est survenue lors de la récupération des groupes"
@@ -18,7 +18,7 @@ const getGroups = async (): Promise<Group[]> => {
 };
 
 const getGroup = async (name: string): Promise<Group> => {
-  const response = await fetch(`${URL}/groups/${name}`, { cache: "no-cache" });
+  const response = await fetch(`${BACK_URL}/groups/${name}`, { cache: "no-cache" });
   if (!response.ok) {
     throw new Error(
       "Une erreur est survenue lors de la récupération du groupe"

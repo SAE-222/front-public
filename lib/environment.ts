@@ -1,7 +1,9 @@
 const prod = "production" === process.env.NODE_ENV;
 
-const URL = prod
+const CLIENT_URL = prod
   ? process.env.NEXT_PUBLIC_API_URL
   : "http://localhost:8393/api";
 
-export default URL;
+const BACK_URL = prod ? process.env.SERVER_SIDE_API_URL : "http://localhost:8393";
+
+export { CLIENT_URL, BACK_URL }

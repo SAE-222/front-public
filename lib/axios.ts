@@ -1,8 +1,8 @@
 import axios from "axios";
-import URL from "./environment";
+import { CLIENT_URL } from "./environment";
 
 const axiosInstance = axios.create({
-  baseURL: URL,
+  baseURL: CLIENT_URL,
 });
 
 export default axiosInstance;
