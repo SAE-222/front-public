@@ -57,7 +57,7 @@ const Banner = ({ color, img, title, subtitle, description }: BannerProps) => {
       style={{ backgroundColor: `${color}` }}
     >
       <div className="flex flex-col justify-center gap-3 pr-8">
-        <InfoIcon className="text-primary text-gray-800" />
+        <InfoIcon className="text-gray-800" />
 
         <div className="space-y-2">
           <h1 className="text-base font-bold md:text-xl text-gray-800">

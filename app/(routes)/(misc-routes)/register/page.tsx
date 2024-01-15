@@ -7,7 +7,7 @@ import { RegisterForm } from "./_components/form";
 
 export default function RegisterPage() {
   return (
-    <div className="max-w-md mx-auto mt-8 space-y-4">
+    <div className="max-w-md mx-auto mt-8 space-y-4 p-8">
       <div className="w-full space-y-4">
         <p className="text-base font-medium">Inscription</p>
         <RegisterForm />
