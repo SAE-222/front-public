@@ -9,6 +9,7 @@ import { Skeleton } from "../ui/skeleton";
 import { ShirtIcon } from "lucide-react";
 import axiosInstance from "@/lib/axios";
 import Link from "next/link";
+import useArrayStorage from "@/hooks/use-array-storage";
 
 interface ProductsProps {
   isLoading: boolean;
@@ -16,6 +17,8 @@ interface ProductsProps {
 }
 
 const Products = ({ isLoading, products }: ProductsProps) => {
+  const { contains, toggle } = useArrayStorage<Product>("favorites");
+
   if (isLoading) return <Skeleton className="w-full h-[400px]" />;
 
   if (products.length === 0)
@@ -38,7 +41,7 @@ const Products = ({ isLoading, products }: ProductsProps) => {
     <div className="w-full grid grid-cols-auto-fit justify-center gap-4">
       {products.map((product) => (
         <Link href={`/product/${product.id}`} key={product.id}>
-          <ProductCard product={product} />
+          <ProductCard product={product} contains={contains} toggle={toggle} />
         </Link>
       ))}
     </div>
@@ -77,7 +80,7 @@ const withProducts = (Component: React.ComponentType<ProductsProps>) => {
                 imgs: product.images,
                 sizes: product.sizes,
               };
-            })
+            }),
           );
           setIsLoading(false);
         } catch (error: any) {

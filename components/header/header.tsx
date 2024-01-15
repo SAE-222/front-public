@@ -20,10 +20,10 @@ const HeaderRight = () => {
     <div className="inline-flex gap-4 items-center">
       <AccountDropdownMenu />
       <Link href="/favorites">
-        <HeartIcon />
+        <HeartIcon size={22} />
       </Link>
       <Link href="/cart">
-        <ShoppingCartIcon />
+        <ShoppingCartIcon size={22} />
       </Link>
       <ModeToggle className="ml-4" />
     </div>

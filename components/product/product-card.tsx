@@ -1,15 +1,25 @@
+"use client";
+
 import { Product } from "@/types/product.type";
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
 import ProductTag from "./product-tag";
 import ProductPrice from "./product-price";
+import { cn } from "@/lib/utils";
 
 interface ProductCardProps {
   product: Product;
+  contains: (product: Product) => boolean;
+  toggle: (product: Product) => void;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, contains, toggle }: ProductCardProps) => {
   const firstImage = product.imgs[0];
+
+  const handleClickFavorite = (event: any) => {
+    event.preventDefault();
+    toggle(product);
+  };
 
   return (
     <article className="max-w-[280px]">
@@ -22,8 +32,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
           priority
           className="w-[280px] h-[400px]"
         />
-        <div className="absolute top-0 right-0 mt-2 p-2 bg-white hover:bg-white/70 group">
-          <HeartIcon className="text-black group-hover:fill-red-600 group-hover:text-red-600" />
+        <div
+          onClick={handleClickFavorite}
+          className="absolute top-0 right-0 mt-2 p-2 bg-white hover:bg-white/70 group"
+        >
+          <HeartIcon
+            size={22}
+            className={cn(
+              "text-black group-hover:fill-red-600 group-hover:text-red-600",
+              contains(product) && "fill-red-600 text-red-600",
+            )}
+          />
         </div>
         <div className="absolute bottom-0 left-0 w-full">
           {product.discount && (
@@ -37,7 +56,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             className="p-2 hidden gap-4 flex-wrap justify-center items-center bg-white"
           >
             {product.sizes.map((size, key) => (
-              <div key={key} className="text-sm text-black whitespace-nowrap  overflow-ellipsis">
+              <div key={key} className="text-sm text-black">
                 {size}
               </div>
             ))}

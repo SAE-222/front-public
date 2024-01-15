@@ -26,6 +26,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import useArrayStorage from "@/hooks/use-array-storage";
+import { cn } from "@/lib/utils";
+import { CartItem } from "@/types/cart-item.type";
+import { useRouter } from "next/navigation";
 
 interface ProductDetailProps {
   description: string;
@@ -59,8 +63,18 @@ const ProductForm = ({ product }: ProductFormProps) => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = () => {
-    console.log("submit");
+  const { replace } = useArrayStorage<CartItem>("cart-items");
+  const router = useRouter();
+
+  const onSubmit = ({ size }: z.infer<typeof FormSchema>) => {
+    const item: CartItem = {
+      id: product.id,
+      product,
+      size,
+      quantity: 1,
+    };
+    replace(item);
+    router.push("/cart");
   };
 
   return (
@@ -103,13 +117,20 @@ const Product = ({ productId }: ProductProps) => {
 
   const [active, setActive] = useState(0);
 
+  const { contains, toggle } = useArrayStorage<Product>("favorites");
+
+  const handleClickFavorite = (product: Product, event: any) => {
+    event.preventDefault();
+    toggle(product);
+  };
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const { data } = await axiosInstance.get(`/products/${productId}`);
         setProduct({
           id: data.id_produit,
-          label: data.label,
+          label: data.nom,
           price: data.prix,
           description: data.description,
           categoryId: data.id_categories,
@@ -137,7 +158,7 @@ const Product = ({ productId }: ProductProps) => {
     return <Skeleton className="w-full h-[650px]" />;
 
   return (
-    <article className="max-w-[480px] space-y-4">
+    <article className="w-[480px] space-y-4">
       <ProductImage img={product.imgs[active]} product={product} />
       <ProductSlider
         imgs={product.imgs}
@@ -162,8 +183,19 @@ const Product = ({ productId }: ProductProps) => {
         >
           Ajouter au panier
         </Button>
-        <Button variant="outline" size="icon" className="group">
-          <HeartIcon className="group-hover:fill-red-600 group-hover:text-red-600" />
+        <Button
+          variant="outline"
+          size="icon"
+          className="group"
+          onClick={(event) => handleClickFavorite(product, event)}
+        >
+          <HeartIcon
+            size={22}
+            className={cn(
+              "text-black group-hover:fill-red-600 group-hover:text-red-600",
+              contains(product) && "fill-red-600 text-red-600",
+            )}
+          />
         </Button>
       </div>
 

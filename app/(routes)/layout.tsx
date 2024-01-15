@@ -4,6 +4,7 @@ import "../globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/header/header";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import CustomSessionProvider from "@/components/providers/session-provider";
 
 const inter = Inter({
   weight: ["400", "700"],
@@ -26,18 +27,20 @@ export default function RootLayout({ children }: RootLayoutProps) {
         className={cn(
           process.env.HIDE_NEXT_ERROR_OVERLAY === "true" &&
             "hide-nextjs-portal",
-          inter.className
+          inter.className,
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          {children}
-        </ThemeProvider>
+        <CustomSessionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            {children}
+          </ThemeProvider>
+        </CustomSessionProvider>
       </body>
     </html>
   );
