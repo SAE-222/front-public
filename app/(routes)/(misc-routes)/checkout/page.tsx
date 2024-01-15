@@ -56,10 +56,6 @@ export default function CheckoutPage() {
     }, 0);
   };
 
-  const calculateTotalWithTaxes = () => {
-    return calculateTotal() * 1.2;
-  };
-
   const paypalCreateOrder = async () => {
     const response = await fetch("/api/paypal/create-order", {
       method: "POST",
@@ -72,6 +68,10 @@ export default function CheckoutPage() {
     });
     const { orderId } = await response.json();
     return orderId;
+  };
+
+  const calculateTotalWithTaxes = () => {
+    return (calculateTotal() * 1.2).toFixed(2);
   };
 
   const paypalCaptureOrder = async (orderID: string) => {
