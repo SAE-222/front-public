@@ -24,10 +24,10 @@ const DiscoverProducts = ({ products }: DiscoverProductsProps) => {
         Découvrez aussi <ArrowDownIcon />
       </p>
       <div className="w-full max-w-full flex gap-3 overflow-x-auto scrollable">
-        {products.length === 0 ? (
+        {products?.length === 0 ? (
           <Skeleton className="w-full h-[400px]" />
         ) : (
-          products.map((product) => (
+          products?.map((product) => (
             <Link href={`/product/${product.id}`} key={product.id}>
               <ProductCard
                 product={product}
