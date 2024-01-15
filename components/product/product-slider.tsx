@@ -17,7 +17,7 @@ const ProductSlider = ({
   const onClick = (key: number) => setActive(key);
 
   return (
-    <div className="w-full max-w-full flex gap-2 overflow-x-auto scrollable">
+    <div className="w-screen max-w-full flex gap-2 overflow-x-auto scrollable">
       {imgs.map((img, key) => (
         <Image
           key={key}
@@ -28,7 +28,7 @@ const ProductSlider = ({
           onClick={() => onClick(key)}
           className={cn(
             "cursor-pointer w-[100px] h-[150px]",
-            active === key && "border-2 border-black dark:border-white"
+            active === key && "border-2 border-black dark:border-white",
           )}
         />
       ))}

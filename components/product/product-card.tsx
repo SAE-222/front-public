@@ -22,7 +22,7 @@ const ProductCard = ({ product, contains, toggle }: ProductCardProps) => {
   };
 
   return (
-    <article className="max-w-[280px]">
+    <article className="min-w-[280px] max-w-[280px]">
       <div className="relative h-[400px] [&>div>#details]:hover:flex">
         <Image
           src={firstImage}

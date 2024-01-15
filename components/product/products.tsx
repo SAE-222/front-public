@@ -16,7 +16,7 @@ interface ProductsProps {
   products: Product[];
 }
 
-const Products = ({ isLoading, products }: ProductsProps) => {
+export const Products = ({ isLoading, products }: ProductsProps) => {
   const { contains, toggle } = useArrayStorage<Product>("favorites");
 
   if (isLoading) return <Skeleton className="w-full h-[400px]" />;
